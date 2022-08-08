@@ -1,0 +1,72 @@
+﻿@using AnketYonetimSistemi.Current_Session
+@model Entities._User
+@{
+
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+
+
+<div style="margin:auto" class="col-md-10">
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                @{
+                    string frontkey = "Personel";
+
+                    if (CurrentSession.user.IsAdmin)
+                    {
+                        frontkey = "Admin";
+                    }
+                    else if (CurrentSession.user.IsManager)
+                    {
+                        frontkey = "Yönetici";
+                    }
+
+                }
+
+                <th style="color: #004F98;font-size:20px" scope="col">@frontkey Bilgileri</th>
+
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <th scope="row">Name: @Model.Name</th>
+
+            </tr>
+            <tr>
+                <th scope="row">Surname: @Model.Surname</th>
+
+            </tr>
+            <tr>
+                <th scope="row">Username: @Model.UserName</th>
+
+            </tr>
+            <tr>
+                <th scope="row">Password: @Model.Password</th>
+
+            </tr>
+
+            @if (!CurrentSession.user.IsAdmin)
+            {
+                <tr>
+                    <th scope="row">Firma Adı: @Model.company.CompanyName</th>
+
+                </tr>
+            }
+
+
+
+
+        </tbody>
+    </table>
+
+    @if (CurrentSession.user.IsAdmin)
+    {
+        <a style="color:goldenrod;font-family:'Global Sans Serif';font-size:20px" href="/Home/AccountDelete/@CurrentSession.user.Id">Hesabı Sil</a>
+    }
+
+    <a style="color:goldenrod;font-family:'Global Sans Serif';font-size:20px;margin:20px" href="/Home/UpdateUser/@CurrentSession.user.Id">Bilgileri Güncelle</a>
+</div>

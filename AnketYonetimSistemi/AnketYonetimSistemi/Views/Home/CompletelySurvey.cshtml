@@ -1,0 +1,82 @@
+﻿@using Entities
+@using AnketYonetimSistemi.Current_Session
+@model List<Survey>
+
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/login-register.css" rel="stylesheet" />
+
+
+<style>
+
+    thead tr th {
+        color: #004F98;
+        font-family: 'Cascadia Code';
+    }
+</style>
+
+<div style="margin:auto;margin-top:80px" class="col-md-10">
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Anket Başlığı</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (Model != null)
+            {
+                int i = 1;
+                foreach (var item in Model)
+                {
+                    
+            <tr>
+                <th style="color: #004F98;font-family:'Cascadia Code'" scope="row">@(i++)</th>
+                <td>@item.SurveyTitle</td>
+
+                @if (CurrentSession.user.IsManager || CurrentSession.user.IsAdmin)
+                {
+                    <td><a href="/Home/CompletePerson/@item.Id">Detay</a></td>
+             
+                    <td><a href="/Home/Dashboard/@item.Id">Analiz</a></td>
+                }
+
+
+            </tr>
+                    
+
+                }
+
+
+            }
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+

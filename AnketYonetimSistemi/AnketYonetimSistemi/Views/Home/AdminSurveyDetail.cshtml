@@ -1,0 +1,53 @@
+﻿@using Entities
+@model AnketYonetimSistemi.Models.SurveyDetailModel
+
+@{
+
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+
+
+@if (Model != null)
+{
+    <div class="row">
+        <h2 id=@Model.SurvId style="color: goldenrod; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;text-align:center">@Model.Title</h2>
+    </div>
+    <hr />
+    int i = 1;
+
+    foreach (var item in Model.questionliste)
+    {
+        <h1 style="color:darkcyan;width:80%;font-size:20px">Soru @i</h1>
+        <div id=@item.Id class="card">
+            <div class="card-body">
+                @item.QuestionText
+            </div>
+        </div>
+        <br />
+        <div class="card" style="width: 80%;margin:auto">
+            <div style="color:darkcyan" class="card-header">
+                Yanıtlar
+            </div>
+            <ul class="list-group list-group-flush">
+                @foreach (var item2 in Model.responseliste.Where(x => x.QuestionId == item.Id))
+                {
+
+                        <li id=@item2.Id class="list-group-item">@item2.Comment</li>
+                    
+                }
+            </ul>
+        </div>
+
+        <hr />
+
+        i++;
+    }
+
+    <hr />
+
+
+
+
+}
+

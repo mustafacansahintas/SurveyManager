@@ -1,0 +1,137 @@
+﻿@using Entities
+@using AnketYonetimSistemi.Current_Session
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" rel="stylesheet">
+
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <link rel="stylesheet" href="~/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="~/assets/css/templatemo-style.css">
+    <link rel="stylesheet" href="~/assets/css/owl.css">
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        a.disabled {
+            pointer-events: none;
+            cursor: default;
+        }
+    </style>
+
+</head>
+
+<body class="is-preload">
+
+    <!-- Wrapper -->
+    <div id="wrapper">
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+
+                <!-- Header -->
+                <header id="header">
+                    <div class="logo">
+                        @if (CurrentSession.user.IsAdmin)
+                        {
+                            <a style="font-size:20px;font-family:Bahnschrift" href="/Admin/Index">ADMİN PANELİ</a>
+                        }
+                        else if (CurrentSession.user.IsManager)
+                        {
+                            <a style="font-size:20px;font-family:Bahnschrift" href="/Manager/Index">YÖNETİCİ PANELİ</a>
+                        }
+                        else
+                        {
+                            <a style="font-size:20px;font-family:Bahnschrift" href="/Employee/Index">PERSONEL PANELİ</a>
+                        }
+                    </div>
+                </header>
+
+
+
+                @RenderBody()
+
+
+
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div id="sidebar">
+
+            <div class="inner">
+
+                <!-- Search Box -->
+                <!-- Menu -->
+                <nav id="menu">
+                    <ul>
+
+                        @if (CurrentSession.user.IsAdmin)
+                        {
+                            <li><a href="/Admin/Index">ANKETLER</a></li>
+                            <li><a href="/Home/CreateSurvey/@CurrentSession.user.Id">YENİ ANKET OLUŞTUR</a></li>
+                            <li><a href="/Home/CompletelySurvey/@CurrentSession.user.Id">CEVAPLANAN ANKETLER</a></li>
+                            <li><a href="/Home/Info/@CurrentSession.user.Id">BİLGİLERİM</a></li>
+                            <li><a href="/Home/CompanyEmployees">PERSONELLER</a></li>
+                            <li><a href="/Admin/AllCompanies">FİRMALAR</a></li>
+
+                        }
+                        else if (CurrentSession.user.IsManager)
+                        {
+                            <li><a href="/Manager/Index">BEKLEYEN ANKETLER</a></li>
+                            <li><a href="/Home/CompletelySurvey/@CurrentSession.user.Id">CEVAPLANAN ANKETLER</a></li>
+                            <li><a href="/Home/Info/@CurrentSession.user.Id">BİLGİLERİM</a></li>
+                            <li><a href="/Home/CompanyEmployees/@CurrentSession.user.CompanyId">PERSONEL BİLGİSİ</a></li>
+                            <li><a href="/Home/UpdateCompany/@CurrentSession.user.CompanyId">FİRMA BİLGİSİ</a></li>
+
+                        }
+                        else
+                        {
+                            <li><a href="/Employee/Index">BEKLEYEN ANKETLER</a></li>
+                            <li><a href="/Home/CompletelySurvey/@CurrentSession.user.Id">TAMAMLADIĞIM ANKETLER</a></li>
+                            <li><a class="disabled">YENİ ANKET OLUŞTUR</a></li>
+                            <li><a href="/Home/Info/@CurrentSession.user.Id">BİLGİLERİM</a></li>
+                            <li><a class="disabled">PERSONEL BİLGİSİ</a></li>
+                            <li><a class="disabled">FİRMA BİLGİSİ</a></li>
+
+                        }
+
+                        <li><a href="/Home/Logout">Çıkış</a></li>
+
+                    </ul>
+                </nav>
+
+
+
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="~/Scripts/jquery-3.6.0.min.js"></script>
+    @*<script src="~/assets/js/browser.min.js"></script>
+    <script src="~/assets/js/breakpoints.min.js"></script>
+    <script src="~/assets/js/transition.js"></script>
+    <script src="~/assets/js/owl-carousel.js"></script>
+    <script src="~/assets/js/custom.js"></script>*@
+
+</body>
+
+
+
+</html>
+
+

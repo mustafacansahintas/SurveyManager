@@ -1,0 +1,138 @@
+﻿@using Entities
+@model AnketYonetimSistemi.Models.SurveyDetailModel
+
+@{
+
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+
+
+@if (Model != null)
+{
+    <div style="margin-left:auto;margin-right:auto;margin-top:40px" class="col-md-3">
+        <h2 id=@Model.SurvId class="survidclass" style="color: goldenrod; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;text-align:center">@Model.Title</h2>
+    </div>
+    <hr />
+    int i = 1;
+
+    foreach (var item in Model.questionliste)
+    {
+        <h1 style="color:darkcyan;width:80%;font-size:20px">Soru @i</h1>
+        <div id=@item.Id class="card-header">
+            <div class="card-body">
+                @item.QuestionText
+            </div>
+
+            <br />
+            <div class="card" style="width: 80%;margin:auto">
+                <div style="color:darkcyan" class="card-header">
+                    Seçenekler
+                </div>
+
+                @foreach (var item2 in Model.responseliste.Where(x => x.QuestionId == item.Id))
+                {
+
+                    <input class="mycheckbox" type="checkbox" id=@item2.Id />
+                    <label style="width:100%" for=@item2.Id>@item2.Comment</label>
+
+
+                }
+
+            </div>
+        </div>
+        <hr />
+
+        i++;
+
+    }
+
+    <br />
+
+    <div class="row">
+        <button style="margin:auto;width:80%;color:white;background-color:darkcyan" type="submit" id="complete" >Anketi Tamamla</button>
+    </div>
+  
+
+   
+    <hr />
+
+}
+<script src="~/Scripts/jquery-3.6.0.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $(".mycheckbox").change(function (event) {
+
+            event.preventDefault();
+
+            if ($(this).is(":checked")) {
+
+                /*    var id1 = $(this).parent().parent().attr("id");*/
+
+                var id = $(this).attr("id");
+
+
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Home/Saveresponse",
+                    dataType: "json",
+                    traditional: true,
+                    data: ({ id: id }),
+
+                    success: function () {
+
+
+
+                    }
+
+                });
+
+
+            }
+            else {
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Home/Removeresponse",
+                    dataType: "json",
+                    traditional: true,
+                    data: ({ id: id }),
+
+                    success: function () {
+
+
+
+                    }
+
+                });
+
+            }
+        });
+    });
+
+    $("#complete").click(function () {
+
+        var survid = $(".survidclass").attr("id");
+
+        $.ajax({
+            type: "GET",
+            url: "/Home/Persavesurvey",
+            dataType: "json",
+            traditional: true,
+            data: ({ id: survid }),
+
+            success: function (statue) {
+
+                alert("Anketi Tamamladınız");
+
+                window.location.href = "https://localhost:44371/"+statue+"/Index";
+
+            }
+
+        });
+
+    });
+
+</script>

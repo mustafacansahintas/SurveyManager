@@ -1,0 +1,86 @@
+﻿@model List<Entities.Survey>
+
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/login-register.css" rel="stylesheet" />
+
+
+<style>
+
+    thead tr th {
+        color: #004F98;
+        font-family: 'Cascadia Code';
+    }
+</style>
+
+<div style="margin:auto;margin-top:80px" class="col-md-10">
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Anket Başlığı</th>
+                <th scope="col">Anket Türü</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (Model != null)
+            {
+                int i = 1;
+                foreach (var item in Model)
+                {
+                    if (item.IsCompletely == true)
+                    {
+                        <tr>
+                            <th style="color: #004F98;font-family:'Cascadia Code'" scope="row">@(i++)</th>
+                            <td>@item.SurveyTitle</td>
+
+                           @if (item.IsAnonim==true)
+                           {
+                               <td>Anonim</td>
+                           }
+                           else
+                           {
+                               <td>Açık Anket</td>
+                           }
+
+
+                            <td><a href="/Home/AdminSurveyDetail/@item.Id">Detay</a></td>
+
+                        </tr>
+                    }
+
+
+                }
+
+
+            }
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

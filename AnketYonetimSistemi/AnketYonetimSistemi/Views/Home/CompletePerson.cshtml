@@ -1,0 +1,93 @@
+﻿@using Entities
+@using AnketYonetimSistemi.Current_Session
+@model List<_User>
+
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+
+    var deger = TempData["anketid"];
+}
+
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/login-register.css" rel="stylesheet" />
+
+
+<style>
+
+    thead tr th {
+        color: #004F98;
+        font-family: 'Cascadia Code';
+    }
+</style>
+
+<div style="margin:auto;margin-top:80px" class="col-md-10">
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Ad</th>
+                <th scope="col">Soyad</th>
+                <th scope="col">Firma</th>
+                <th scope="col">Pozisyon</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (Model != null)
+            {
+                int i = 1;
+                foreach (var item in Model)
+                {
+                    
+            <tr>
+                <th style="color: #004F98;font-family:'Cascadia Code'" scope="row">@(i++)</th>
+                <td>@item.Name</td>
+                <td>@item.Surname</td>
+                <td>@item.company.CompanyName</td>
+
+                @if (item.IsManager)
+                {
+                    <td>Yönetici</td>
+                }
+                else
+                {
+                    <td>Personel</td>
+                }
+
+                <td>@Html.ActionLink("Detay","SurveyDetail", "Home", new { id =deger, userid = item.Id }, null)</td>
+            </tr>
+                    
+
+                }
+
+
+            }
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

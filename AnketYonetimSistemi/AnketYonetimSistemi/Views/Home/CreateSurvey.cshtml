@@ -1,0 +1,84 @@
+﻿@using AnketYonetimSistemi.Current_Session
+@using AnketYonetimSistemi.CacheHelper
+@using Entities
+@model Entities.Survey
+
+@{
+    Layout = "~/Views/Shared/Layout.cshtml";
+
+}
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<style>
+
+    .form-group {
+        margin-top: 10px;
+    }
+
+    div.orta {
+        background-color: #004F98;
+        background-size: cover;
+        height: 32px;
+        display: flex;
+        align-items: center;
+    }
+
+        div.orta > a {
+            margin: 0 auto;
+            color: #fff;
+            font-size: 25px;
+        }
+</style>
+
+
+<div style="margin:auto" class="col-md-10">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <h4 style="color:goldenrod;font-family:'Segoe UI';margin:20px;text-align:center">Yeni Anket</h4>
+        <hr />
+
+        <div class="row" style="margin:auto">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.SurveyTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-8">
+                    @Html.EditorFor(model => model.SurveyTitle, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.SurveyTitle, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div style="width:20%" class="form-group">
+                @Html.LabelFor(model => model.IsAnonim, htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.DropDownListFor(m => m.IsAnonim, new SelectList(new[]
+             {
+
+                        new SelectListItem { Value = "true", Text = "Anonim" },
+                        new SelectListItem { Value = "false", Text = "Açık" },
+                    },
+             "Value",
+             "Text"
+             ),
+                new { @class = "form-control" })
+
+            </div>
+
+
+            <br />
+            <br />
+            <div style="margin:auto" class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input style="background-color:goldenrod;margin-top:20px" type="submit" value="Kaydet" class="btn btn-success" />
+
+                </div>
+            </div>
+        </div>
+
+    }
+
+</div>
+
+
+

@@ -1,0 +1,86 @@
+﻿@using AnketYonetimSistemi.Current_Session
+@model List<Entities._User>
+
+@{
+
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/login-register.css" rel="stylesheet" />
+
+
+
+    <div style="margin-left:auto;margin-right:auto;margin-top:40px" class="col-md-3">
+        <a style="font-size:20px;color:goldenrod;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif" href="/Home/AddPersonel">Yeni Personel Ekle</a>
+    </div>
+
+
+
+<style>
+
+    thead tr th {
+        color: #004F98;
+        font-family: 'Cascadia Code';
+    }
+</style>
+
+<div style="margin:auto;margin-top:80px" class="col-md-10">
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col" ></th>
+                <th scope="col">Name</th>
+                <th scope="col">Surname</th>
+                <th scope="col">Username</th>
+                <th scope="col">Password</th>
+                <th scope="col">Company</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @if (Model != null)
+            {
+                int i = 1;
+                foreach (var item in Model)
+                {
+
+            <tr>
+                <th style="color: #004F98;font-family:'Cascadia Code'" scope="row">@(i++)</th>
+                <td>@item.Name</td>
+                <td>@item.Surname</td>
+                <td>@item.UserName</td>
+                <td>@item.Password</td>
+                <td>@item.company.CompanyName</td>
+                <td><a href="/Home/UserDelete/@item.Id">Sil</a></td>
+                <td><a href="/Home/UpdateUser/@item.Id">Güncelle</a></td>
+            </tr>
+                }
+
+
+            }
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
